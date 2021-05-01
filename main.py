@@ -7,6 +7,7 @@ from kivy.properties import ListProperty, NumericProperty, DictProperty
 import PyPDF2
 import docx
 
+import os 
 class Manager(ScreenManager):
     pass
 
@@ -45,20 +46,21 @@ class Exibidor(Screen):
         self.cont=0
         if texto.strip():
             self.t=[i for i in texto.replace('\n',' ').split(' ') if i and i!=' ']
-            self.children[1].source='play.png'
+            self.children[1].source=os.path.join('img','play.png')
         else:
             self.ids['texto'].text='NÃO FOI POSSILVEL\n    LER O ARQUIVO'
-            self.children[1].source='nada.png'
+            self.children[1].source=os.path.join('img','nada.png')
 
     _play = 1
     def play(self):
         if texto.strip() and self.cont < len(self.t):
             if self._play:
-                self.children[1].source='pausa.png'
+                self.children[1].source=os.path.join('img','pausa.png')
                 self.klok=Clock.schedule_interval(self.coisa, 60/vel)
                 self._play = 0
+
             else:
-                self.children[1].source='play.png'
+                self.children[1].source=os.path.join('img','play.png')
                 Clock.unschedule(self.klok)
                 self._play = 1
 
@@ -68,7 +70,7 @@ class Exibidor(Screen):
 
         if self.cont >= len(self.t):
             Clock.unschedule(self.klok)
-            self.children[1].source='nada.png'
+            self.children[1].source=os.path.join('img','nada.png')
 
     giro=1
     rotacao=NumericProperty(0)
@@ -92,7 +94,7 @@ class Exibidor(Screen):
     def voltar(self):
         Clock.unschedule(self.klok)
         self.ids['texto'].text=''
-        self.children[1].source='play.png'
+        self.children[1].source=os.path.join('img/play.png')
         self._play = 1
         self.manager.current = 'inicio'
 
