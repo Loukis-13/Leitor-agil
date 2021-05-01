@@ -4,12 +4,20 @@ from kivy.clock import Clock
 from kivy.uix.textinput import TextInput
 from kivy.properties import ListProperty, NumericProperty, DictProperty
 
+# from kivy.config import Config
+# Config.set('graphics', 'width', '480')
+# Config.set('graphics', 'height', '854')
+# Config.write()
+
 import PyPDF2
 import docx
-
 import os 
+
 class Manager(ScreenManager):
     pass
+
+with open('db.txt', 'r') as f:
+    dicio=eval(f.read())
 
 texto=''
 class Inicio(Screen):
@@ -56,7 +64,7 @@ class Exibidor(Screen):
         if texto.strip() and self.cont < len(self.t):
             if self._play:
                 self.children[1].source=os.path.join('img','pausa.png')
-                self.klok=Clock.schedule_interval(self.coisa, 60/vel)
+                self.klok=Clock.schedule_interval(self.coisa, 60/int(vel))
                 self._play = 0
 
             else:
@@ -98,7 +106,7 @@ class Exibidor(Screen):
         self._play = 1
         self.manager.current = 'inicio'
 
-vel=0
+vel=dicio['vel']
 class VelInput(TextInput):
     pat = '0123456789'
     def insert_text(self, substring, from_undo=False):
@@ -114,11 +122,20 @@ class VelInput(TextInput):
             self.text = '1000'
 
         global vel
-        vel = int(self.text)
+        vel = self.text
+        dicio['vel']=vel
+        with open('db.txt', 'w') as f:
+            f.write(str(dicio))
 
 class Leitor_AgilApp(App):
-    _1 = ListProperty([0.07450980392156863, 0.09803921568627451, 0.12941176470588237, 1.0])
-    _2 = ListProperty([1.0, 0.6, 0.0, 1.0])
+    cores = ListProperty(dicio['cores'])
+    vel=dicio['vel']
+
+    def on_cores(s, i, v): 
+        dicio.update({'cores': v})
+        with open('db.txt', 'w') as f:
+            f.write(str(dicio))
+
     def build(self):
         return Manager()
 

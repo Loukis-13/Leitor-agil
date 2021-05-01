@@ -17,12 +17,12 @@
     source: 'img/config.png'
     size_hint: .1, .06
     pos_hint:{"right":1, "top":1}
-    color: app._2
+    color: app.cores[1]
 
 <Inicio>:
     canvas:
         Color:
-            rgb: app._1
+            rgb: app.cores[0]
         Rectangle:
             size:self.size
             pos:self.pos
@@ -36,9 +36,9 @@
 
         Button:
             text: 'ESCOLHER ARQUIVO'
-            color: app._1
+            color: app.cores[0]
             background_normal: ''
-            background_color: app._2
+            background_color: app.cores[1]
             on_press: app.root.current = 'escolha'
 
 <Escolha>:
@@ -71,23 +71,23 @@
 <Bt@ButtonBehavior+Label>:
     text:'<'
     font_size:50
-    color: app._2
+    color: app.cores[1]
     size_hint: .1, .06
 
 <Bt_girar@ButtonBehavior+Image>:
     source: 'img/girar.png'
     size_hint: .1, .06
-    color: app._2
+    color: app.cores[1]
 
 <Bt_play@ButtonBehavior+Image>:
     source: 'img/play.png'
     size_hint: .2, .08
-    color: app._2
+    color: app.cores[1]
 
 <Exibidor>:
     canvas:
         Color:
-            rgb: app._1
+            rgb: app.cores[0]
         Rectangle:
             size:self.size
             pos:self.pos
@@ -134,7 +134,7 @@
             id:texto
             text:''
             font_size:50
-            color: app._2
+            color: app.cores[1]
             canvas.before:
                 PushMatrix
                 Rotate:
@@ -146,7 +146,7 @@
 <Config@Screen>:
     canvas:
         Color:
-            rgb: app._1
+            rgb: app.cores[0]
         Rectangle:
             size:self.size
             pos:self.pos
@@ -165,17 +165,17 @@
             Label:
                 text:'NÚMERO DE PALAVRAS POR MINUTO'
                 font_size:20
-                color: app._2
+                color: app.cores[1]
             VelInput:
                 size_hint: .25, 1.2
                 input_type: 'number'
                 font_size:30
                 pos_hint:{"center_x":.5, "center_y":.5}
                 id:'vel'
-                text:'300'
+                text:app.vel
             Label:
                 text:'Min:1      Max:1000'
-                color: app._2
+                color: app.cores[1]
 
         BoxLayout:
             orientation: 'vertical'
@@ -185,7 +185,7 @@
             orientation: 'vertical'
             Label:
                 text:'PREDEFINIÇÕES DE CORES'
-                color: app._2
+                color: app.cores[1]
                 font_size:20
                 
             Button:
@@ -200,32 +200,32 @@
                 color: [0,0,0,1]
                 background_normal: ''
                 background_color: [1,1,1,1]
-                on_press: app._1, app._2 = [1,1,1,1], [0,0,0,1]
+                on_press: app.cores = [[1,1,1,1], [0,0,0,1]]
             Button:
                 text:'[b]PRETO E BRANCO[/b]'
                 markup: True
                 color: [1,1,1,1]
                 background_normal: ''
                 background_color: [0,0,0,1]
-                on_press: app._1, app._2 = [0,0,0,1], [1,1,1,1]
+                on_press: app.cores = [[0,0,0,1], [1,1,1,1]]
             Button:
                 text:'[b]AZUL E LARANJA[/b]'
                 markup: True
                 color: [1.0, 0.6, 0.0, 1.0]
                 background_normal: ''
                 background_color: [0.07450980392156863, 0.09803921568627451, 0.12941176470588237, 1.0]
-                on_press: app._1, app._2 = [0.07450980392156863, 0.09803921568627451, 0.12941176470588237, 1.0], [1.0, 0.6, 0.0, 1.0]
+                on_press: app.cores = [[0.07450980392156863, 0.09803921568627451, 0.12941176470588237, 1.0], [1.0, 0.6, 0.0, 1.0]]
             Button:
                 text:'[b]VERDE E AMARELO[/b]'
                 markup: True
                 color: [254/255, 224/255, 0/255, 1]
                 background_normal: ''
                 background_color: [0/255, 156/255, 55/255, 1]
-                on_press: app._1, app._2 = [0/255, 156/255, 55/255, 1], [254/255, 224/255, 0/255, 1]
+                on_press: app.cores = [[0/255, 156/255, 55/255, 1], [254/255, 224/255, 0/255, 1]]
             Button:
                 text:'[b]ROSA E AZUL[/b]'
                 markup: True
                 color: [234/255, 73/255, 147/255, 1]
                 background_normal: ''
                 background_color: [76/255, 179/255, 213/255, 1]
-                on_press: app._1, app._2 = [76/255, 179/255, 213/255, 1], [234/255, 73/255, 147/255, 1]
+                on_press: app.cores = [[76/255, 179/255, 213/255, 1], [234/255, 73/255, 147/255, 1]]
