@@ -68,21 +68,37 @@
             FileChooserIconLayout
             FileChooserListLayout
 
-<Bt@ButtonBehavior+Label>:
+<Bt_voltar@ButtonBehavior+Label>:
     text:'<'
     font_size:50
     color: app.cores[1]
     size_hint: .1, .06
 
-<Bt_girar@ButtonBehavior+Image>:
+<Bt@ButtonBehavior+Image>:
+    color: app.cores[1]
+    canvas.before:
+        PushMatrix
+        Rotate:
+            angle: root.parent.rotacao
+            origin: self.center
+    canvas.after:
+        PopMatrix
+
+<Bt_girar@Bt>:
     source: 'img/girar.png'
     size_hint: .1, .06
-    color: app.cores[1]
 
-<Bt_play@ButtonBehavior+Image>:
+<Bt_play@Bt>:
     source: 'img/play.png'
     size_hint: .2, .08
-    color: app.cores[1]
+
+<Bt_restart@Bt>:
+    source: 'img/restart.png'
+    size_hint: .2, .08
+
+<Bt_retro@Bt>:
+    source: 'img/retro.png'
+    size_hint: .2, .08
 
 <Exibidor>:
     canvas:
@@ -92,8 +108,8 @@
             size:self.size
             pos:self.pos
 
-    Bt:
-        pos_hint: root.bt
+    Bt_voltar:
+        pos_hint: root.bt_voltar
         on_press: root.voltar()
         canvas.before:
             PushMatrix
@@ -106,25 +122,19 @@
     Bt_girar:
         pos_hint: root.bt_girar
         on_press: root.girar()
-        canvas.before:
-            PushMatrix
-            Rotate:
-                angle: root.rotacao
-                origin: self.center
-        canvas.after:
-            PopMatrix
 
     Bt_play:
-        id:'play'
+        id:play
         pos_hint: root.bt_play
         on_press: root.play()
-        canvas.before:
-            PushMatrix
-            Rotate:
-                angle: root.rotacao
-                origin: self.center
-        canvas.after:
-            PopMatrix
+
+    Bt_restart:
+        pos_hint: root.bt_restart
+        on_press: root.restart()
+    
+    Bt_retro:
+        pos_hint: root.bt_retro
+        on_press: root.retro()
 
     BoxLayout:
         size: root.width, root.height
@@ -154,7 +164,7 @@
 
     BoxLayout:
         orientation: 'vertical'
-        Bt:
+        Bt_voltar:
             on_press: app.root.current = 'inicio'
             size_hint: .1, .15
 
